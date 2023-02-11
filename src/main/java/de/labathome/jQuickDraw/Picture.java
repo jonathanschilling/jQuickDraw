@@ -350,12 +350,13 @@ public class Picture {
 	}
 
 	public static void main(String[] args) {
+
 //		new Picture(Picture.DEMO_1);
 
-		String filename = "/data/jonathan/work/code/Apple_QuickDraw/OpenQuickDraw/demos/abscab.pict"; // QuickDraw v1.9.5 PICT
-//		String filename = "/data/jonathan/work/code/Apple_QuickDraw/OpenQuickDraw/demos/test17.pict"; // QuickDraw v1.7   PICT
-//		String filename = "/data/jonathan/work/code/Apple_QuickDraw/OpenQuickDraw/demos/abscab"; // MacDraw-internal format
 
+//		String filename = "src/test/resources/abscab.pict"; // QuickDraw v1.9.5 PICT
+		String filename = "src/test/resources/test17.pict"; // QuickDraw v1.7   PICT
+//		String filename = "src/test/resources/test.pict"; // same as statically defined DEMO_1
 		try (RandomAccessFile memoryFile = new RandomAccessFile(filename, "r")) {
 			MappedByteBuffer buf = memoryFile.getChannel().map(FileChannel.MapMode.READ_ONLY, 0, memoryFile.length());
 
