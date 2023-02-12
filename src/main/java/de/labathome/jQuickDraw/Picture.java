@@ -9,55 +9,45 @@ import java.nio.channels.FileChannel;
 public class Picture {
 
 	public static byte[] DEMO_1 = new byte[] {
-			(byte) 0x00, (byte) 0x4f, /* picture size; this value is reliable for version 1 pictures */
-			(byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0xAA, /*
-																													 * bounding
-																													 * rectangle
-																													 * of
-																													 * picture
-																													 */
-			(byte) 0x11, /* picVersion opcode for version 1 */
-			(byte) 0x01, /* version number 1 */
-			(byte) 0x01, /* ClipRgn opcode to define clipping region for picture */
-			(byte) 0x00, (byte) 0x0A, /* region size */
-			(byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0xAA, /*
-																													 * bounding
-																													 * rectangle
-																													 * for
-																													 * region
-																													 */
-			(byte) 0x0A, /* FillPat opcode; fill pattern specified in next 8 bytes */
-			(byte) 0x77, (byte) 0xDD, (byte) 0x77, (byte) 0xDD, (byte) 0x77, (byte) 0xDD, 0x77, (byte) 0xDD, /*
-																												 * fill
-																												 * pattern
-																												 */
-			(byte) 0x34, /* fillRect opcode; rectangle specified in next 8 bytes */
-			(byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0xAA, /*
-																													 * rectangle
-																													 * to
-																													 * fill
-																													 */
-			(byte) 0x0A, /* FillPat opcode; fill pattern specified in next 8 bytes */
-			(byte) 0x88, (byte) 0x22, (byte) 0x88, (byte) 0x22, (byte) 0x88, (byte) 0x22, (byte) 0x88, (byte) 0x22, /*
-																													 * fill
-																													 * pattern
-																													 */
-			(byte) 0x5C, /* fillSameOval opcode */
-			(byte) 0x71, /* paintPoly opcode */
-			(byte) 0x00, (byte) 0x1A, /* size of polygon */
-			(byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0xAA, /*
-																													 * bounding
-																													 * rectangle
-																													 * for
-																													 * polygon
-																													 */
+			/* picture size; this value is reliable for version 1 pictures */
+			(byte) 0x00, (byte) 0x4f,
+			/* bounding rectangle of picture */
+			(byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0xAA,
+			/* picVersion opcode for version 1 */
+			(byte) 0x11,
+			/* version number 1 */
+			(byte) 0x01,
+			/* ClipRgn opcode to define clipping region for picture */
+			(byte) 0x01,
+			/* region size */
+			(byte) 0x00, (byte) 0x0A,
+			/* bounding rectangle for region */
+			(byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0xAA,
+			/* FillPat opcode; fill pattern specified in next 8 bytes */
+			(byte) 0x0A,
+			/* fill pattern */
+			(byte) 0x77, (byte) 0xDD, (byte) 0x77, (byte) 0xDD, (byte) 0x77, (byte) 0xDD, 0x77, (byte) 0xDD,
+			/* fillRect opcode; rectangle specified in next 8 bytes */
+			(byte) 0x34,
+			/* rectangle to fill */
+			(byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0xAA,
+			/* FillPat opcode; fill pattern specified in next 8 bytes */
+			(byte) 0x0A,
+			/* fill pattern */
+			(byte) 0x88, (byte) 0x22, (byte) 0x88, (byte) 0x22, (byte) 0x88, (byte) 0x22, (byte) 0x88, (byte) 0x22,
+			/* fillSameOval opcode */
+			(byte) 0x5C,
+			/* paintPoly opcode */
+			(byte) 0x71,
+			/* size of polygon */
+			(byte) 0x00, (byte) 0x1A,
+			/* bounding rectangle for polygon */
+			(byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0xAA,
+			/* polygon points */
 			(byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x02, (byte) 0x00, (byte) 0x54,
-			(byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0xAA, (byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0x02, /*
-																													 * polygon
-																													 * points
-																													 */
-			(byte) 0xFF /* EndOfPicture opcode; end of picture */
-	};
+			(byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0xAA, (byte) 0x00, (byte) 0x6E, (byte) 0x00, (byte) 0x02,
+			/* EndOfPicture opcode; end of picture */
+			(byte) 0xFF };
 
 	public Picture(byte[] pictData) {
 		this(ByteBuffer.wrap(pictData));
@@ -109,7 +99,9 @@ public class Picture {
 				break;
 			case TxFace:
 				short txFace = pictData.get();
-				if (txFace < 0) { txFace += 256; }
+				if (txFace < 0) {
+					txFace += 256;
+				}
 				port.setTextFace(txFace);
 				break;
 			case TxMode:
@@ -330,12 +322,10 @@ public class Picture {
 				endOfPictureFound = true;
 				break;
 
-
 			case reservedForApple_00:
 				break;
 			case reservedForApple_01:
 				break;
-
 
 			default:
 				break;
@@ -353,9 +343,8 @@ public class Picture {
 
 //		new Picture(Picture.DEMO_1);
 
-
 //		String filename = "src/test/resources/abscab.pict"; // QuickDraw v1.9.5 PICT
-		String filename = "src/test/resources/test17.pict"; // QuickDraw v1.7   PICT
+		String filename = "src/test/resources/test17.pict"; // QuickDraw v1.7 PICT
 //		String filename = "src/test/resources/test.pict"; // same as statically defined DEMO_1
 		try (RandomAccessFile memoryFile = new RandomAccessFile(filename, "r")) {
 			MappedByteBuffer buf = memoryFile.getChannel().map(FileChannel.MapMode.READ_ONLY, 0, memoryFile.length());
@@ -368,7 +357,6 @@ public class Picture {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 
 	}
 
