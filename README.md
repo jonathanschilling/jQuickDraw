@@ -18,3 +18,7 @@ The parser entry is in the [`Picture`](src/main/java/de/labathome/jQuickDraw/Pic
 For now, output is done using `matplotlib` through JyPlot.  
 A demo plot of the test image (for which the byte stream is given in Inside Macintosh) can be seen here:  
 ![test rendering](demo/test_via_JyPlot.png)
+
+... and here is the corresponding reference from Inside Macintosh - Imaging with Quickdraw (Appendix A):  
+![test reference](demo/test_ref.png)
+
