@@ -68,7 +68,8 @@ public class Picture {
 		picFrame = new Rect(pictData);
 		System.out.printf("pict frame: %s\n", picFrame.toString());
 
-		port = new GrafPort(picFrame);
+		//port = new GrafPort(picFrame);
+		port = new JyPlotDevice(picFrame);
 
 		boolean endOfPictureFound = false;
 		int pos = pictData.position() - startPos;
@@ -343,8 +344,8 @@ public class Picture {
 
 //		new Picture(Picture.DEMO_1);
 
-//		String filename = "src/test/resources/abscab.pict"; // QuickDraw v1.9.5 PICT
-		String filename = "src/test/resources/test17.pict"; // QuickDraw v1.7 PICT
+		String filename = "src/test/resources/abscab.pict"; // QuickDraw v1.9.5 PICT
+//		String filename = "src/test/resources/test17.pict"; // QuickDraw v1.7 PICT
 //		String filename = "src/test/resources/test.pict"; // same as statically defined DEMO_1
 		try (RandomAccessFile memoryFile = new RandomAccessFile(filename, "r")) {
 			MappedByteBuffer buf = memoryFile.getChannel().map(FileChannel.MapMode.READ_ONLY, 0, memoryFile.length());
@@ -352,7 +353,8 @@ public class Picture {
 			// skip header
 			buf.position(512); // definitely needed for PICT
 
-			new Picture(buf);
+			Picture p = new Picture(buf);
+			p.port.display();
 
 		} catch (Exception e) {
 			e.printStackTrace();

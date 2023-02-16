@@ -1,6 +1,6 @@
 package de.labathome.jQuickDraw;
 
-public class GrafPort {
+public abstract class GrafPort {
 
 	public GrafPort(Rect portFrame) {
 		this.portRect = portFrame;
@@ -138,4 +138,5 @@ public class GrafPort {
 	public FontName namedFont;
 	public GlyphState glyphState;
 
+	public abstract void display();
 }

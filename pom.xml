@@ -14,6 +14,13 @@
 	<name>jQuickDraw</name>
 	<description>A pure-Java implementation of Apple QuickDraw</description>
 	
+	<dependencies>
+		<dependency>
+			<groupId>aliceinnets</groupId>
+			<artifactId>java-jyplot</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+	</dependencies>
 	
 	
 </project>
