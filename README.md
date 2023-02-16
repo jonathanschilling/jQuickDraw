@@ -14,3 +14,7 @@ The opcodes define drawing operations available in the QuickDraw API.
 
 ## Code
 The parser entry is in the [`Picture`](src/main/java/de/labathome/jQuickDraw/Picture.java) class.
+
+For now, output is done using `matplotlib` through JyPlot.  
+A demo plot of the test image (for which the byte stream is given in Inside Macintosh) can be seen here:  
+![test rendering](demo/test_via_JyPlot.png)
